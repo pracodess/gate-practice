@@ -562,22 +562,22 @@ export const TestsPage: React.FC = () => {
     return (
       <div className="space-y-6 animate-in fade-in">
         {/* Header with Back button */}
-        <div className="flex items-center justify-between pb-4 border-b border-[#1D8676]/20">
+        <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-[#1D8676]/20">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#1D8676]/20 text-[#2dd4bf] border border-[#1D8676]/30">
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#1D8676]/10 dark:bg-[#1D8676]/20 text-[#1D8676] dark:text-[#2dd4bf] border border-[#1D8676]/25 dark:border-[#1D8676]/30">
               OFFICIAL PERFORMANCE SCORECARD
             </span>
-            <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">
               {sc.testTitle}
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Attempted on {sc.timestamp} • Time Spent: {Math.round(sc.timeSpentSeconds / 60)} mins
             </p>
           </div>
 
           <button
             onClick={() => setViewingScorecard(null)}
-            className="px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-all"
+            className="px-3.5 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>Back to Tests</span>
@@ -586,68 +586,68 @@ export const TestsPage: React.FC = () => {
 
         {/* Top Summary Metrics Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div className="p-4 rounded-2xl bg-[#10161b] border border-[#1D8676]/30">
-            <span className="text-xs text-slate-400 font-medium">Final Score</span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#2dd4bf] font-mono mt-1">
+          <div className="p-4 rounded-2xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 shadow-sm">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Final Score</span>
+            <div className="text-2xl sm:text-3xl font-extrabold text-[#1D8676] dark:text-[#2dd4bf] font-mono mt-1">
               {sc.score} <span className="text-xs text-slate-400 font-sans font-normal">/ {sc.maxScore}</span>
             </div>
-            <span className="text-[10px] text-emerald-400 font-semibold">{sc.percentage}% Total Marks</span>
+            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">{sc.percentage}% Total Marks</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#10161b] border border-[#1D8676]/30">
-            <span className="text-xs text-slate-400 font-medium">Estimated Percentile</span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-amber-400 font-mono mt-1">
+          <div className="p-4 rounded-2xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 shadow-sm">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Estimated Percentile</span>
+            <div className="text-2xl sm:text-3xl font-extrabold text-amber-500 dark:text-amber-400 font-mono mt-1">
               {sc.percentile} %ile
             </div>
-            <span className="text-[10px] text-slate-400">AIR ~{sc.rankEstimate} estimate</span>
+            <span className="text-[10px] text-slate-500 dark:text-slate-400">AIR ~{sc.rankEstimate} estimate</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#10161b] border border-[#1D8676]/30">
-            <span className="text-xs text-slate-400 font-medium">Accuracy Rate</span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono mt-1">
+          <div className="p-4 rounded-2xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 shadow-sm">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Accuracy Rate</span>
+            <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono mt-1">
               {sc.accuracy}%
             </div>
-            <span className="text-[10px] text-slate-400">{sc.correctAnswers} of {sc.correctAnswers + sc.incorrectAnswers} attempted</span>
+            <span className="text-[10px] text-slate-500 dark:text-slate-400">{sc.correctAnswers} of {sc.correctAnswers + sc.incorrectAnswers} attempted</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#10161b] border border-[#1D8676]/30">
-            <span className="text-xs text-slate-400 font-medium">Pace per Question</span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-purple-400 font-mono mt-1">
+          <div className="p-4 rounded-2xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 shadow-sm">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Pace per Question</span>
+            <div className="text-2xl sm:text-3xl font-extrabold text-purple-600 dark:text-purple-400 font-mono mt-1">
               {Math.round(sc.timeSpentSeconds / sc.totalQuestions)}s
             </div>
-            <span className="text-[10px] text-slate-400">Recommended: ~120s</span>
+            <span className="text-[10px] text-slate-500 dark:text-slate-400">Recommended: ~120s</span>
           </div>
         </div>
 
         {/* Detailed Breakdown: Correct vs Incorrect vs Skipped */}
-        <div className="p-6 rounded-2xl bg-[#10161b] border border-slate-800 space-y-4">
-          <h4 className="text-sm font-bold text-white flex items-center gap-2">
+        <div className="p-6 rounded-2xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <BarChart3 className="w-4 h-4 text-[#1D8676]" />
             <span>Attempt Analysis Breakdown</span>
           </h4>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <div>
-                <span className="text-xs text-slate-300 font-medium">Correct Questions</span>
-                <p className="text-lg font-bold text-emerald-400">{sc.correctAnswers}</p>
+                <span className="text-xs text-slate-600 dark:text-slate-300 font-medium">Correct Questions</span>
+                <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">{sc.correctAnswers}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20">
-              <XCircle className="w-5 h-5 text-rose-400" />
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20">
+              <XCircle className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               <div>
-                <span className="text-xs text-slate-300 font-medium">Incorrect Questions</span>
-                <p className="text-lg font-bold text-rose-400">{sc.incorrectAnswers}</p>
+                <span className="text-xs text-slate-600 dark:text-slate-300 font-medium">Incorrect Questions</span>
+                <p className="text-lg font-bold text-rose-600 dark:text-rose-400">{sc.incorrectAnswers}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 border border-slate-700/40">
-              <AlertCircle className="w-5 h-5 text-slate-400" />
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/40">
+              <AlertCircle className="w-5 h-5 text-slate-500 dark:text-slate-400" />
               <div>
-                <span className="text-xs text-slate-300 font-medium">Unattempted (Skipped)</span>
-                <p className="text-lg font-bold text-slate-300">{sc.unattemptedAnswers}</p>
+                <span className="text-xs text-slate-600 dark:text-slate-300 font-medium">Unattempted (Skipped)</span>
+                <p className="text-lg font-bold text-slate-700 dark:text-slate-300">{sc.unattemptedAnswers}</p>
               </div>
             </div>
           </div>
@@ -655,7 +655,7 @@ export const TestsPage: React.FC = () => {
 
         {/* Question-by-Question Detailed Review with Solutions */}
         <div className="space-y-4">
-          <h4 className="text-sm font-bold text-white uppercase tracking-wider">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
             Question-by-Question Solution Review
           </h4>
 
@@ -671,44 +671,44 @@ export const TestsPage: React.FC = () => {
             }
 
             return (
-              <div key={q.id} className="p-5 rounded-2xl bg-[#10161b] border border-slate-800 space-y-3">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                  <span className="text-xs font-bold text-[#2dd4bf]">
+              <div key={q.id} className="p-5 rounded-2xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-xs font-bold text-[#1D8676] dark:text-[#2dd4bf]">
                     Question {idx + 1} • {q.difficulty} • +{q.marks} Marks
                   </span>
                   <span className={`text-xs px-2 py-0.5 rounded font-bold ${
                     !isAttempted
-                      ? 'bg-slate-800 text-slate-400'
+                      ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                       : isCorrect
-                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                      : 'bg-rose-500/20 text-rose-400 border border-rose-500/40'
+                      ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40'
+                      : 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/40'
                   }`}>
                     {!isAttempted ? 'SKIPPED' : isCorrect ? 'CORRECT' : 'INCORRECT'}
                   </span>
                 </div>
 
-                <p className="text-sm text-slate-200 font-medium leading-relaxed">
+                <p className="text-sm text-slate-800 dark:text-slate-200 font-medium leading-relaxed">
                   {q.questionText}
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
-                  <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                    <span className="text-slate-400 block mb-0.5">Your Response:</span>
-                    <span className="font-mono font-bold text-white">
+                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                    <span className="text-slate-500 dark:text-slate-400 block mb-0.5">Your Response:</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">
                       {userAns || 'No Answer Given'}
                     </span>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-[#1D8676]/10 border border-[#1D8676]/30">
-                    <span className="text-slate-400 block mb-0.5">Official Answer:</span>
-                    <span className="font-mono font-bold text-[#2dd4bf]">
+                  <div className="p-2.5 rounded-xl bg-teal-50/60 dark:bg-[#1D8676]/10 border border-[#1D8676]/25 dark:border-[#1D8676]/30">
+                    <span className="text-slate-500 dark:text-slate-400 block mb-0.5">Official Answer:</span>
+                    <span className="font-mono font-bold text-[#1D8676] dark:text-[#2dd4bf]">
                       {Array.isArray(q.correctAnswer) ? q.correctAnswer.join(', ') : q.correctAnswer}
                     </span>
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300 leading-relaxed whitespace-pre-line">
-                  <strong className="text-white block mb-1">Detailed Explanation:</strong>
+                <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+                  <strong className="text-slate-900 dark:text-white block mb-1">Detailed Explanation:</strong>
                   {q.explanation}
                 </div>
               </div>
@@ -723,15 +723,15 @@ export const TestsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1D8676]/20">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-[#1D8676]/20">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#1D8676]/20 text-[#2dd4bf] border border-[#1D8676]/30">
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#1D8676]/10 dark:bg-[#1D8676]/20 text-[#1D8676] dark:text-[#2dd4bf] border border-[#1D8676]/25 dark:border-[#1D8676]/30">
               REAL EXAM SIMULATOR
             </span>
-            <span className="text-xs text-slate-400">Timed tests with negative marking</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Timed tests with negative marking</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
             {currentExamData.name} Mock Tests & Speed Drills
           </h2>
         </div>
@@ -742,47 +742,47 @@ export const TestsPage: React.FC = () => {
         {availableTests.map((test) => (
           <div
             key={test.id}
-            className="p-5 rounded-2xl bg-[#10161b] border border-[#1D8676]/30 hover:border-[#1D8676] transition-all flex flex-col justify-between shadow-sm hover:shadow-lg hover:shadow-[#1D8676]/10"
+            className="p-5 rounded-2xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 hover:border-[#1D8676] transition-all flex flex-col justify-between shadow-sm hover:shadow-md"
           >
             <div>
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-[#1D8676]/20 text-[#2dd4bf] border border-[#1D8676]/40">
+                <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-[#1D8676]/10 dark:bg-[#1D8676]/20 text-[#1D8676] dark:text-[#2dd4bf] border border-[#1D8676]/25 dark:border-[#1D8676]/40">
                   {test.type}
                 </span>
-                <span className="text-xs text-slate-400 flex items-center gap-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5 text-[#1D8676]" />
                   {test.durationMinutes} Minutes
                 </span>
               </div>
 
-              <h3 className="text-base font-bold text-white mb-1.5 leading-snug">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1.5 leading-snug">
                 {test.title}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Pattern matches latest {currentExamData.name} notification with official calculator support.
               </p>
 
-              <div className="flex items-center gap-4 my-4 pt-3 border-t border-slate-800 text-xs text-slate-300">
+              <div className="flex items-center gap-4 my-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300">
                 <div>
-                  <span className="text-slate-500 block text-[10px]">QUESTIONS</span>
-                  <span className="font-semibold">{test.totalQuestions} Questions</span>
+                  <span className="text-slate-400 block text-[10px]">QUESTIONS</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{test.totalQuestions} Questions</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px]">MARKS</span>
-                  <span className="font-semibold">{test.totalMarks} Total</span>
+                  <span className="text-slate-400 block text-[10px]">MARKS</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{test.totalMarks} Total</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px]">MARKING</span>
-                  <span className="font-semibold text-emerald-400">+{test.positiveMarks}</span> / <span className="text-rose-400">-{test.negativeMarks}</span>
+                  <span className="text-slate-400 block text-[10px]">MARKING</span>
+                  <span className="font-semibold text-emerald-600 dark:text-emerald-400">+{test.positiveMarks}</span> / <span className="text-rose-600 dark:text-rose-400">-{test.negativeMarks}</span>
                 </div>
               </div>
             </div>
 
             <button
               onClick={() => startMockTest(test)}
-              className="w-full py-2.5 rounded-xl bg-[#1D8676] hover:bg-[#176f62] text-white text-xs font-bold transition-all shadow-md shadow-[#1D8676]/30 flex items-center justify-center gap-2 group"
+              className="w-full py-2.5 rounded-xl bg-[#1D8676] hover:bg-[#176f62] text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 group"
             >
-              <Play className="w-4 h-4 fill-white group-hover:scale-110 transition-transform" />
+              <Play className="w-4 h-4 fill-white group-hover:scale-105 transition-transform" />
               <span>Start Test Simulator</span>
             </button>
           </div>
@@ -791,13 +791,13 @@ export const TestsPage: React.FC = () => {
 
       {/* Past Test Attempts & Scorecard History */}
       <div className="pt-6">
-        <h3 className="text-base font-bold text-white mb-3 flex items-center gap-2">
+        <h3 className="text-base font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
           <History className="w-4 h-4 text-[#1D8676]" />
           <span>Past Test Attempts & Scorecards ({testHistory.length})</span>
         </h3>
 
         {testHistory.length === 0 ? (
-          <div className="p-6 text-center bg-slate-900/40 rounded-2xl border border-slate-800 text-slate-400 text-xs">
+          <div className="p-6 text-center bg-white dark:bg-slate-900/40 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-500 text-xs shadow-sm">
             No mock tests completed yet. Start your first mock test above to view detailed scorecards!
           </div>
         ) : (
@@ -806,21 +806,21 @@ export const TestsPage: React.FC = () => {
               <div
                 key={sub.id}
                 onClick={() => setViewingScorecard(sub)}
-                className="p-4 rounded-xl bg-[#10161b] border border-slate-800 hover:border-[#1D8676]/60 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                className="p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-slate-800 hover:border-[#1D8676]/60 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm"
               >
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-bold text-white">{sub.testTitle}</span>
+                    <span className="text-xs font-bold text-slate-900 dark:text-white">{sub.testTitle}</span>
                     <span className="text-[10px] text-slate-400">• {sub.timestamp}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-slate-400">
-                    <span>Score: <strong className="text-[#2dd4bf]">{sub.score}/{sub.maxScore}</strong></span>
-                    <span>Percentile: <strong className="text-amber-400">{sub.percentile}%ile</strong></span>
-                    <span>Accuracy: <strong className="text-emerald-400">{sub.accuracy}%</strong></span>
+                  <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+                    <span>Score: <strong className="text-[#1D8676] dark:text-[#2dd4bf]">{sub.score}/{sub.maxScore}</strong></span>
+                    <span>Percentile: <strong className="text-amber-500 dark:text-amber-400">{sub.percentile}%ile</strong></span>
+                    <span>Accuracy: <strong className="text-emerald-600 dark:text-emerald-400">{sub.accuracy}%</strong></span>
                   </div>
                 </div>
 
-                <button className="px-3 py-1.5 rounded-lg bg-[#1D8676]/15 text-[#2dd4bf] text-xs font-semibold flex items-center gap-1 hover:bg-[#1D8676] hover:text-white transition-all self-end sm:self-center">
+                <button className="px-3 py-1.5 rounded-lg bg-[#1D8676]/10 dark:bg-[#1D8676]/15 text-[#1D8676] dark:text-[#2dd4bf] text-xs font-semibold flex items-center gap-1 hover:bg-[#1D8676] hover:text-white transition-all self-end sm:self-center">
                   <span>View Scorecard</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>

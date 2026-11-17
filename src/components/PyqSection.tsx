@@ -3,12 +3,8 @@ import {
   CheckCircle2, 
   HelpCircle, 
   Bookmark, 
-  ChevronRight, 
-  Filter, 
-  Sparkles, 
   Check, 
   X, 
-  AlertCircle,
   Lightbulb,
   ArrowRight
 } from 'lucide-react';
@@ -33,15 +29,12 @@ export const PyqSection: React.FC = () => {
   const [numericalInput, setNumericalInput] = useState<string>('');
   const [showExplanation, setShowExplanation] = useState<boolean>(false);
 
-  // Filter PYQs for currently selected exam
   const examPyqs = SAMPLE_PYQS.filter((q) => q.examId === selectedExam);
 
-  // Filter by subject
   const subjectFiltered = selectedSubjectId === 'all'
     ? examPyqs
     : examPyqs.filter((q) => q.subjectId === selectedSubjectId);
 
-  // Filter by year
   const filteredPyqs = selectedYear === 'all'
     ? subjectFiltered
     : subjectFiltered.filter((q) => q.year.toString() === selectedYear);
@@ -84,34 +77,34 @@ export const PyqSection: React.FC = () => {
   };
 
   return (
-    <section className="my-8">
+    <section id="tour-pyq-bank" className="my-8">
       {/* Section Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>Chapter-wise PYQ Bank</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-[#1D8676]/20 text-[#2dd4bf] border border-[#1D8676]/30 font-mono">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-[#1D8676]/10 dark:bg-[#1D8676]/20 text-[#1D8676] dark:text-[#2dd4bf] border border-[#1D8676]/25 dark:border-[#1D8676]/30 font-mono">
               {filteredPyqs.length} Questions
             </span>
           </h3>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Practice real past exam questions with instant verified solutions and timer benchmarks.
           </p>
         </div>
       </div>
 
-      {/* Subject Filter Badges (Horizontal scroll styled like the screenshot) */}
+      {/* Subject Filter Badges */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none mb-4">
         <button
           onClick={() => setSelectedSubjectId('all')}
           className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
             selectedSubjectId === 'all'
-              ? 'bg-[#1D8676] text-white shadow-md shadow-[#1D8676]/30'
-              : 'bg-slate-800/60 text-slate-300 hover:bg-slate-800 border border-slate-700/60'
+              ? 'bg-[#1D8676] text-white shadow-sm'
+              : 'bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/60'
           }`}
         >
           <span>All Subjects</span>
-          <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/30 font-mono">
+          <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/10 dark:bg-black/30 font-mono">
             {examPyqs.length}
           </span>
         </button>
@@ -124,13 +117,13 @@ export const PyqSection: React.FC = () => {
               onClick={() => setSelectedSubjectId(sub.id)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
                 selectedSubjectId === sub.id
-                  ? 'bg-[#1D8676] text-white shadow-md shadow-[#1D8676]/30'
-                  : 'bg-slate-800/60 text-slate-300 hover:bg-slate-800 border border-slate-700/60'
+                  ? 'bg-[#1D8676] text-white shadow-sm'
+                  : 'bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/60'
               }`}
             >
               <span>{sub.name}</span>
               {count > 0 && (
-                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/30 font-mono">
+                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/10 dark:bg-black/30 font-mono">
                   {count}
                 </span>
               )}
@@ -141,15 +134,15 @@ export const PyqSection: React.FC = () => {
 
       {/* Year Filter Chips */}
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-xs text-slate-400 font-medium">Year:</span>
+        <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Year:</span>
         {['all', '2024', '2023', '2022'].map((yr) => (
           <button
             key={yr}
             onClick={() => setSelectedYear(yr)}
             className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
               selectedYear === yr
-                ? 'bg-[#1D8676]/30 text-[#2dd4bf] border border-[#1D8676]'
-                : 'text-slate-400 hover:text-slate-200 border border-transparent'
+                ? 'bg-[#1D8676]/10 dark:bg-[#1D8676]/30 text-[#1D8676] dark:text-[#2dd4bf] border border-[#1D8676]'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-transparent'
             }`}
           >
             {yr === 'all' ? 'All Years' : yr}
@@ -160,9 +153,9 @@ export const PyqSection: React.FC = () => {
       {/* Questions List */}
       <div className="space-y-3">
         {filteredPyqs.length === 0 ? (
-          <div className="p-8 text-center bg-slate-900/40 rounded-2xl border border-slate-800">
-            <HelpCircle className="w-8 h-8 text-slate-500 mx-auto mb-2" />
-            <p className="text-sm font-semibold text-slate-300">No PYQs found for this filter</p>
+          <div className="p-8 text-center bg-white dark:bg-slate-900/40 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <HelpCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+            <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">No PYQs found for this filter</p>
             <p className="text-xs text-slate-500 mt-1">Select "All Subjects" or switch year to see available practice questions.</p>
           </div>
         ) : (
@@ -175,23 +168,23 @@ export const PyqSection: React.FC = () => {
               <div
                 key={q.id}
                 onClick={() => handleOpenQuestion(q)}
-                className="group p-4 rounded-xl bg-[#10161b] border border-[#1D8676]/20 hover:border-[#1D8676]/60 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:shadow-lg hover:shadow-[#1D8676]/10"
+                className="group p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/20 hover:border-[#1D8676] transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm hover:shadow-md"
               >
                 <div className="flex items-start gap-3 flex-1">
                   {/* Status Indicator */}
                   <div className="pt-0.5">
                     {isSolved ? (
                       isCorrect ? (
-                        <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40">
+                        <div className="w-6 h-6 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/40">
                           <Check className="w-3.5 h-3.5" />
                         </div>
                       ) : (
-                        <div className="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center border border-rose-500/40">
+                        <div className="w-6 h-6 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center justify-center border border-rose-500/40">
                           <X className="w-3.5 h-3.5" />
                         </div>
                       )
                     ) : (
-                      <div className="w-6 h-6 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center border border-slate-700">
+                      <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 flex items-center justify-center border border-slate-200 dark:border-slate-700">
                         <span className="text-[10px] font-mono">Q</span>
                       </div>
                     )}
@@ -200,27 +193,27 @@ export const PyqSection: React.FC = () => {
                   {/* Question details */}
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#1D8676]/20 text-[#2dd4bf] border border-[#1D8676]/30 uppercase">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#1D8676]/10 dark:bg-[#1D8676]/20 text-[#1D8676] dark:text-[#2dd4bf] border border-[#1D8676]/25 dark:border-[#1D8676]/30 uppercase">
                         {currentExamData.name} {q.year} {q.examShift && `• ${q.examShift}`}
                       </span>
                       <span className={`text-[10px] px-2 py-0.5 rounded font-semibold ${
                         q.difficulty === 'Easy' 
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
                           : q.difficulty === 'Medium'
-                          ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                          : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                          ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                          : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
                       }`}>
                         {q.difficulty}
                       </span>
-                      <span className="text-[10px] text-slate-400">
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400">
                         +{q.marks} / -{q.negativeMarks} Marks
                       </span>
-                      <span className="text-[10px] uppercase font-bold text-slate-400 px-1.5 py-0.5 rounded bg-slate-800">
+                      <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
                         {q.type.toUpperCase()}
                       </span>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-slate-200 font-medium line-clamp-2 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 font-medium line-clamp-2 leading-relaxed">
                       {q.questionText}
                     </p>
                   </div>
@@ -235,15 +228,15 @@ export const PyqSection: React.FC = () => {
                     }}
                     className={`p-2 rounded-lg transition-colors ${
                       isBookmarked
-                        ? 'text-amber-400 bg-amber-400/10'
-                        : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'
+                        ? 'text-amber-500 bg-amber-500/10'
+                        : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                     }`}
                     title={isBookmarked ? 'Bookmarked' : 'Bookmark question'}
                   >
                     <Bookmark className="w-4 h-4" />
                   </button>
 
-                  <button className="px-3 py-1.5 rounded-lg bg-[#1D8676]/20 group-hover:bg-[#1D8676] text-[#2dd4bf] group-hover:text-white text-xs font-bold flex items-center gap-1 transition-all">
+                  <button className="px-3 py-1.5 rounded-lg bg-[#1D8676]/10 dark:bg-[#1D8676]/20 group-hover:bg-[#1D8676] text-[#1D8676] dark:text-[#2dd4bf] group-hover:text-white text-xs font-bold flex items-center gap-1 transition-all">
                     <span>{isSolved ? 'Review' : 'Solve'}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
@@ -256,21 +249,21 @@ export const PyqSection: React.FC = () => {
 
       {/* Interactive Question Solving Modal */}
       {activeQuestion && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#12181d] border border-[#1D8676]/40 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative animate-in fade-in zoom-in-95 my-8">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white dark:bg-[#12181d] border border-slate-200 dark:border-[#1D8676]/40 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative animate-in fade-in zoom-in-95 my-8">
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-[#1D8676]/20 text-[#2dd4bf] border border-[#1D8676]/40">
+                <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-[#1D8676]/10 dark:bg-[#1D8676]/20 text-[#1D8676] dark:text-[#2dd4bf] border border-[#1D8676]/25 dark:border-[#1D8676]/40">
                   {currentExamData.name} {activeQuestion.year}
                 </span>
-                <span className="text-xs text-slate-400">
+                <span className="text-xs text-slate-500 dark:text-slate-400">
                   {activeQuestion.marks} Marks • {activeQuestion.type.toUpperCase()}
                 </span>
               </div>
               <button
                 onClick={() => setActiveQuestion(null)}
-                className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -278,7 +271,7 @@ export const PyqSection: React.FC = () => {
 
             {/* Question Text */}
             <div className="my-5">
-              <h4 className="text-sm sm:text-base font-semibold text-white leading-relaxed">
+              <h4 className="text-sm sm:text-base font-semibold text-slate-900 dark:text-white leading-relaxed">
                 {activeQuestion.questionText}
               </h4>
             </div>
@@ -289,16 +282,16 @@ export const PyqSection: React.FC = () => {
                 {activeQuestion.options.map((opt) => {
                   const isSelected = selectedOption === opt.id;
                   const isCorrect = opt.id === activeQuestion.correctAnswer;
-                  let borderStyle = 'border-slate-800 hover:border-slate-700 bg-slate-900/50';
+                  let borderStyle = 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-slate-800 dark:text-slate-200';
 
                   if (showExplanation) {
                     if (isCorrect) {
-                      borderStyle = 'border-emerald-500 bg-emerald-500/15 text-emerald-200';
+                      borderStyle = 'border-emerald-500 bg-emerald-500/10 text-emerald-800 dark:text-emerald-200';
                     } else if (isSelected && !isCorrect) {
-                      borderStyle = 'border-rose-500 bg-rose-500/15 text-rose-200';
+                      borderStyle = 'border-rose-500 bg-rose-500/10 text-rose-800 dark:text-rose-200';
                     }
                   } else if (isSelected) {
-                    borderStyle = 'border-[#1D8676] bg-[#1D8676]/20 text-[#2dd4bf]';
+                    borderStyle = 'border-[#1D8676] bg-[#1D8676]/10 dark:bg-[#1D8676]/20 text-[#1D8676] dark:text-[#2dd4bf]';
                   }
 
                   return (
@@ -315,11 +308,11 @@ export const PyqSection: React.FC = () => {
                           ? 'bg-rose-500 text-white'
                           : isSelected 
                           ? 'bg-[#1D8676] text-white' 
-                          : 'bg-slate-800 text-slate-400'
+                          : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                       }`}>
                         {opt.id}
                       </div>
-                      <span className="flex-1 text-slate-200">{opt.text}</span>
+                      <span className="flex-1">{opt.text}</span>
                     </button>
                   );
                 })}
@@ -329,7 +322,7 @@ export const PyqSection: React.FC = () => {
             {/* Numerical Answer Type (NAT) Input */}
             {activeQuestion.type === 'nat' && (
               <div className="my-4">
-                <label className="block text-xs font-bold text-slate-400 uppercase mb-2">
+                <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-2">
                   Enter Numerical Answer:
                 </label>
                 <input
@@ -338,24 +331,24 @@ export const PyqSection: React.FC = () => {
                   onChange={(e) => setNumericalInput(e.target.value)}
                   disabled={showExplanation}
                   placeholder="e.g. 9 or 36"
-                  className="w-full sm:w-64 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-[#1D8676] text-white font-mono text-sm outline-none"
+                  className="w-full sm:w-64 px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 focus:border-[#1D8676] text-slate-900 dark:text-white font-mono text-sm outline-none"
                 />
               </div>
             )}
 
             {/* Actions: Submit & Check */}
             {!showExplanation && (
-              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-800">
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
                 <button
                   onClick={() => setActiveQuestion(null)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleCheckAnswer}
                   disabled={activeQuestion.type === 'mcq' ? !selectedOption : !numericalInput}
-                  className="px-5 py-2.5 rounded-xl bg-[#1D8676] hover:bg-[#176f62] disabled:opacity-50 text-white text-xs font-bold transition-all shadow-md shadow-[#1D8676]/30 flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-xl bg-[#1D8676] hover:bg-[#176f62] disabled:opacity-50 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-2"
                 >
                   <span>Submit Answer</span>
                   <Check className="w-4 h-4" />
@@ -365,30 +358,30 @@ export const PyqSection: React.FC = () => {
 
             {/* Detailed Explanation Reveal */}
             {showExplanation && (
-              <div className="mt-5 p-4 rounded-xl bg-slate-900/90 border border-[#1D8676]/40 animate-in fade-in">
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#2dd4bf] mb-2">
-                  <Lightbulb className="w-4 h-4 text-amber-400" />
+              <div className="mt-5 p-4 rounded-xl bg-teal-50/40 dark:bg-slate-900/90 border border-[#1D8676]/30 animate-in fade-in">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1D8676] dark:text-[#2dd4bf] mb-2">
+                  <Lightbulb className="w-4 h-4 text-amber-500 dark:text-amber-400" />
                   <span>Step-by-Step Solution & Concept Trap</span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed whitespace-pre-line">
+                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-line">
                   {activeQuestion.explanation}
                 </p>
 
                 {activeQuestion.keyFormula && (
-                  <div className="mt-3 p-2.5 rounded-lg bg-[#1D8676]/10 border border-[#1D8676]/30 text-xs font-mono text-[#2dd4bf]">
-                    💡 <strong className="text-white">Key Formula:</strong> {activeQuestion.keyFormula}
+                  <div className="mt-3 p-2.5 rounded-lg bg-[#1D8676]/10 border border-[#1D8676]/25 text-xs font-mono text-[#1D8676] dark:text-[#2dd4bf]">
+                    💡 <strong className="text-slate-900 dark:text-white">Key Formula:</strong> {activeQuestion.keyFormula}
                   </div>
                 )}
 
-                <div className="flex justify-end gap-3 mt-4 pt-3 border-t border-slate-800">
+                <div className="flex justify-end gap-3 mt-4 pt-3 border-t border-slate-200 dark:border-slate-800">
                   <button
                     onClick={() => {
                       setShowExplanation(false);
                       setSelectedOption('');
                       setNumericalInput('');
                     }}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white"
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   >
                     Try Again
                   </button>

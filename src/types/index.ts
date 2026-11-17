@@ -166,4 +166,5 @@ export interface UserProfile {
   totalFocusMinutes: number;
   lastActiveDate: string;
   rankTitle: string;
+  hasCompletedOnboarding?: boolean;
 }

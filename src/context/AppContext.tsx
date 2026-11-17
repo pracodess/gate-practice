@@ -27,6 +27,7 @@ interface AppContextType {
   activeTab: NavTab;
   setActiveTab: (tab: NavTab) => void;
   userProfile: UserProfile;
+  completeOnboarding: (name: string, exam: ExamId, targetYear: number) => void;
   dailyGoal: DailyGoal;
   solvedQuestions: Record<string, { status: 'correct' | 'incorrect'; selected: string }>;
   markQuestionAnswered: (questionId: string, isCorrect: boolean, selected: string) => void;
@@ -52,6 +53,12 @@ interface AppContextType {
   triggerNotification: (title: string, message: string) => void;
   notificationsList: { id: string; title: string; message: string; time: string; read: boolean }[];
   clearNotifications: () => void;
+  // Interactive tour states
+  isTourActive: boolean;
+  tourStep: number;
+  startTour: () => void;
+  nextTourStep: () => void;
+  stopTour: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -59,12 +66,12 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Theme state
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    return (localStorage.getItem('marks_theme') as 'dark' | 'light') || 'dark';
+    return (localStorage.getItem('gradeup_theme') as 'dark' | 'light') || 'dark';
   });
 
   // Selected Exam state
   const [selectedExam, setSelectedExamState] = useState<ExamId>(() => {
-    return (localStorage.getItem('marks_selected_exam') as ExamId) || 'gate';
+    return (localStorage.getItem('gradeup_selected_exam') as ExamId) || 'gate';
   });
 
   // Active navigation tab
@@ -79,108 +86,93 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activeExamTest, setActiveExamTest] = useState<MockTest | null>(null);
   const [viewingScorecard, setViewingScorecard] = useState<TestSubmission | null>(null);
 
-  // User Profile
+  // Interactive tour state
+  const [isTourActive, setIsTourActive] = useState(false);
+  const [tourStep, setTourStep] = useState(0);
+
+  // User Profile: Starts with 0 stats and uncompleted onboarding if fresh
   const [userProfile, setUserProfile] = useState<UserProfile>(() => {
-    const saved = localStorage.getItem('marks_user_profile');
+    const saved = localStorage.getItem('gradeup_user_profile');
     if (saved) {
       try { return JSON.parse(saved); } catch {}
     }
     return {
-      name: 'Pratham',
-      email: 'pratham.engg@domain.com',
+      name: '',
+      email: '',
       targetYear: 2026,
       selectedExam: 'gate',
-      streakDays: 7,
-      xpPoints: 1240,
-      gems: 85,
-      totalQuestionsSolved: 142,
-      totalFocusMinutes: 340,
+      streakDays: 0,
+      xpPoints: 0,
+      gems: 0,
+      totalQuestionsSolved: 0,
+      totalFocusMinutes: 0,
       lastActiveDate: new Date().toISOString().split('T')[0],
-      rankTitle: 'Grandmaster Aspirant'
+      rankTitle: 'Aspirant',
+      hasCompletedOnboarding: false
     };
   });
 
-  // Daily Goal
+  // Daily Goal: Initialized to 0 completed
   const [dailyGoal, setDailyGoal] = useState<DailyGoal>(() => {
-    const saved = localStorage.getItem('marks_daily_goal');
+    const saved = localStorage.getItem('gradeup_daily_goal');
     if (saved) {
       try { return JSON.parse(saved); } catch {}
     }
     return {
       questionsTarget: 30,
-      questionsCompleted: 14,
+      questionsCompleted: 0,
       studyTimeMinutesTarget: 180,
-      studyTimeMinutesCompleted: 85,
+      studyTimeMinutesCompleted: 0,
       date: new Date().toISOString().split('T')[0],
       isGoalReached: false
     };
   });
 
-  // Solved Questions tracker
+  // Solved Questions tracker: Starts empty
   const [solvedQuestions, setSolvedQuestions] = useState<Record<string, { status: 'correct' | 'incorrect'; selected: string }>>(() => {
-    const saved = localStorage.getItem('marks_solved_questions');
+    const saved = localStorage.getItem('gradeup_solved_questions');
     if (saved) {
       try { return JSON.parse(saved); } catch {}
     }
-    return {
-      'gate-2024-q1': { status: 'correct', selected: 'A' }
-    };
+    return {};
   });
 
-  // Bookmarks
+  // Bookmarks: Starts empty
   const [bookmarkedQuestions, setBookmarkedQuestions] = useState<string[]>(() => {
-    const saved = localStorage.getItem('marks_bookmarked_questions');
-    return saved ? JSON.parse(saved) : ['gate-2024-q1', 'gate-2023-q1'];
+    const saved = localStorage.getItem('gradeup_bookmarked_questions');
+    return saved ? JSON.parse(saved) : [];
   });
 
   const [bookmarkedNotes, setBookmarkedNotes] = useState<string[]>(() => {
-    const saved = localStorage.getItem('marks_bookmarked_notes');
-    return saved ? JSON.parse(saved) : ['note-dsa-trees'];
+    const saved = localStorage.getItem('gradeup_bookmarked_notes');
+    return saved ? JSON.parse(saved) : [];
   });
 
-  // Test History
+  // Test History: Starts empty
   const [testHistory, setTestHistory] = useState<TestSubmission[]>(() => {
-    const saved = localStorage.getItem('marks_test_history');
+    const saved = localStorage.getItem('gradeup_test_history');
     if (saved) {
       try { return JSON.parse(saved); } catch {}
     }
-    return [
-      {
-        id: 'test-rec-1',
-        testId: 'mock-gate-speed-dsa',
-        testTitle: 'DSA & Algorithms Rapid Speed Test',
-        examId: 'gate',
-        timestamp: new Date(Date.now() - 86400000 * 2).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-        timeSpentSeconds: 1140,
-        score: 4,
-        maxScore: 5,
-        percentage: 80,
-        percentile: 94.2,
-        rankEstimate: 128,
-        totalQuestions: 4,
-        correctAnswers: 3,
-        incorrectAnswers: 1,
-        unattemptedAnswers: 0,
-        accuracy: 75,
-        subjectBreakdown: [
-          { subjectName: 'Data Structures & Algorithms', score: 4, maxScore: 5, accuracy: 75 }
-        ],
-        userResponses: { 'gate-2024-q1': 'A', 'gate-2024-q2': '9' }
-      }
-    ];
+    return [];
   });
 
-  // Achievements
+  // Achievements: Starts with 0 progress
   const [achievements, setAchievements] = useState<Achievement[]>(() => {
-    const saved = localStorage.getItem('marks_achievements');
-    return saved ? JSON.parse(saved) : INITIAL_ACHIEVEMENTS;
+    const saved = localStorage.getItem('gradeup_achievements');
+    if (saved) {
+      try { return JSON.parse(saved); } catch {}
+    }
+    return INITIAL_ACHIEVEMENTS.map(a => ({
+      ...a,
+      isUnlocked: false,
+      progress: 0
+    }));
   });
 
   // Notifications
   const [notificationsList, setNotificationsList] = useState<{ id: string; title: string; message: string; time: string; read: boolean }[]>([
-    { id: '1', title: 'Daily Goal Checkpoint', message: 'You are 16 questions away from today\'s goal!', time: '10m ago', read: false },
-    { id: '2', title: 'Streak Preserved 🔥', message: 'You have maintained your 7-day streak!', time: '1h ago', read: false },
-    { id: '3', title: 'New PYQs Added', message: '2024 GATE CS Solutions are now verified.', time: 'Yesterday', read: true }
+    { id: '1', title: 'Welcome to GradeUp! 🚀', message: 'Set up your daily goal and start your first practice session.', time: 'Just now', read: false }
   ]);
 
   // Sync theme to HTML root element
@@ -193,36 +185,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       root.classList.add('light');
       root.classList.remove('dark');
     }
-    localStorage.setItem('marks_theme', theme);
+    localStorage.setItem('gradeup_theme', theme);
   }, [theme]);
 
   // Persist selections
   useEffect(() => {
-    localStorage.setItem('marks_selected_exam', selectedExam);
+    localStorage.setItem('gradeup_selected_exam', selectedExam);
   }, [selectedExam]);
 
   useEffect(() => {
-    localStorage.setItem('marks_user_profile', JSON.stringify(userProfile));
+    localStorage.setItem('gradeup_user_profile', JSON.stringify(userProfile));
   }, [userProfile]);
 
   useEffect(() => {
-    localStorage.setItem('marks_daily_goal', JSON.stringify(dailyGoal));
+    localStorage.setItem('gradeup_daily_goal', JSON.stringify(dailyGoal));
   }, [dailyGoal]);
 
   useEffect(() => {
-    localStorage.setItem('marks_solved_questions', JSON.stringify(solvedQuestions));
+    localStorage.setItem('gradeup_solved_questions', JSON.stringify(solvedQuestions));
   }, [solvedQuestions]);
 
   useEffect(() => {
-    localStorage.setItem('marks_bookmarked_questions', JSON.stringify(bookmarkedQuestions));
+    localStorage.setItem('gradeup_bookmarked_questions', JSON.stringify(bookmarkedQuestions));
   }, [bookmarkedQuestions]);
 
   useEffect(() => {
-    localStorage.setItem('marks_bookmarked_notes', JSON.stringify(bookmarkedNotes));
+    localStorage.setItem('gradeup_bookmarked_notes', JSON.stringify(bookmarkedNotes));
   }, [bookmarkedNotes]);
 
   useEffect(() => {
-    localStorage.setItem('marks_test_history', JSON.stringify(testHistory));
+    localStorage.setItem('gradeup_test_history', JSON.stringify(testHistory));
   }, [testHistory]);
 
   const setSelectedExam = (exam: ExamId) => {
@@ -230,9 +222,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setUserProfile(prev => ({ ...prev, selectedExam: exam }));
   };
 
+  const completeOnboarding = (name: string, exam: ExamId, targetYear: number) => {
+    setUserProfile(prev => ({
+      ...prev,
+      name,
+      selectedExam: exam,
+      targetYear,
+      hasCompletedOnboarding: true
+    }));
+    setSelectedExamState(exam);
+    triggerCelebration();
+
+    // Auto-trigger guided interactive tour
+    setTimeout(() => {
+      setTourStep(0);
+      setIsTourActive(true);
+    }, 400);
+  };
+
+  const startTour = () => {
+    setActiveTab('home');
+    setTourStep(0);
+    setIsTourActive(true);
+  };
+
+  const nextTourStep = () => {
+    setTourStep(prev => prev + 1);
+  };
+
+  const stopTour = () => {
+    setIsTourActive(false);
+  };
+
   const triggerCelebration = () => {
     confetti({
-      particleCount: 80,
+      particleCount: 75,
       spread: 70,
       origin: { y: 0.6 },
       colors: ['#1D8676', '#38d4bc', '#10b981', '#f59e0b', '#ffffff']
@@ -255,7 +279,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       ...prev,
       xpPoints: prev.xpPoints + xpGained,
       totalQuestionsSolved: prev.totalQuestionsSolved + 1,
-      gems: prev.gems + (isCorrect ? 1 : 0)
+      gems: prev.gems + (isCorrect ? 1 : 0),
+      streakDays: prev.streakDays === 0 ? 1 : prev.streakDays
     }));
 
     setDailyGoal(prev => {
@@ -286,11 +311,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const saveTestSubmission = (submission: TestSubmission) => {
     setTestHistory(prev => [submission, ...prev]);
-    // Award test XP
     setUserProfile(prev => ({
       ...prev,
       xpPoints: prev.xpPoints + 150,
-      gems: prev.gems + 10
+      gems: prev.gems + 10,
+      streakDays: prev.streakDays === 0 ? 1 : prev.streakDays
     }));
     triggerCelebration();
   };
@@ -299,7 +324,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setUserProfile(prev => ({
       ...prev,
       totalFocusMinutes: prev.totalFocusMinutes + mins,
-      xpPoints: prev.xpPoints + Math.round(mins * 1.5)
+      xpPoints: prev.xpPoints + Math.round(mins * 1.5),
+      streakDays: prev.streakDays === 0 ? 1 : prev.streakDays
     }));
     setDailyGoal(prev => ({
       ...prev,
@@ -318,7 +344,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const triggerNotification = (title: string, message: string) => {
     if (isFocusModeActive) {
-      // Popups and notifications are strictly suppressed during focus mode
       setBlockedPopupsCount(c => c + 1);
       return;
     }
@@ -345,6 +370,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         activeTab,
         setActiveTab,
         userProfile,
+        completeOnboarding,
         dailyGoal,
         solvedQuestions,
         markQuestionAnswered,
@@ -369,7 +395,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         blockedPopupsCount,
         triggerNotification,
         notificationsList,
-        clearNotifications
+        clearNotifications,
+        isTourActive,
+        tourStep,
+        startTour,
+        nextTourStep,
+        stopTour
       }}
     >
       {children}
