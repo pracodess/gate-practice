@@ -52,7 +52,7 @@ export const ProfilePage: React.FC = () => {
 
       {/* Stats Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 shadow-sm">
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
             <Flame className="w-4 h-4 text-orange-500 fill-orange-500" />
             <span>Streak</span>
@@ -61,7 +61,7 @@ export const ProfilePage: React.FC = () => {
           <span className="text-[10px] text-emerald-600 dark:text-emerald-400">Continuous study</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 shadow-sm">
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
             <Sparkles className="w-4 h-4 text-[#1D8676] dark:text-[#2dd4bf]" />
             <span>Experience</span>
@@ -70,7 +70,7 @@ export const ProfilePage: React.FC = () => {
           <span className="text-[10px] text-slate-500 dark:text-slate-400">Total points</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 shadow-sm">
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
             <Target className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>PYQs Solved</span>
@@ -79,7 +79,7 @@ export const ProfilePage: React.FC = () => {
           <span className="text-[10px] text-slate-500 dark:text-slate-400">Questions completed</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 shadow-sm">
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
             <Clock className="w-4 h-4 text-purple-600 dark:text-purple-400" />
             <span>Focus Time</span>

@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
   const unreadCount = notificationsList.filter(n => !n.read).length;
 
   return (
-    <header className="h-16 px-6 border-b border-slate-200 dark:border-[#1D8676]/20 bg-white/90 dark:bg-[#0b0f12]/80 backdrop-blur-md flex items-center justify-between sticky top-0 z-20 transition-colors">
+    <header className="h-16 px-6 border-b border-slate-200 dark:border-[#1D8676]/20 bg-white/95 dark:bg-[#0b0f12]/80 backdrop-blur-md flex items-center justify-between sticky top-0 z-20 transition-colors">
       {/* Left: User Greeting & Exam Selector Switcher */}
       <div className="flex items-center gap-4">
         {/* User avatar and greeting */}

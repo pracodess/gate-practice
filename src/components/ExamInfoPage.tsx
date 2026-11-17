@@ -82,7 +82,7 @@ export const ExamInfoPage: React.FC = () => {
 
         <div className="space-y-4">
           {currentExamData.subjects.map((sub) => (
-            <div key={sub.id} className="p-5 rounded-2xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+            <div key={sub.id} className="p-5 rounded-2xl bg-white dark:bg-[#10161b] border border-slate-200 dark:border-[#1D8676]/30 shadow-sm space-y-3">
               <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
                 <span className="text-sm font-bold text-slate-900 dark:text-white">{sub.name}</span>
                 <span className="text-xs font-mono text-[#1D8676] dark:text-[#2dd4bf]">

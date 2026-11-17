@@ -57,7 +57,7 @@ export const ShortNotesPage: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#1D8676]/10 dark:bg-[#1D8676]/20 text-[#1D8676] dark:text-[#2dd4bf] border border-[#1D8676]/25 dark:border-[#1D8676]/30">
-              {currentExamData.name} STUDY VAULT
+              {currentExamData.name} QUICK REVISION NOTES
             </span>
             <span className="text-xs text-slate-500 dark:text-slate-400">Zero-fluff formulas & key concepts</span>
           </div>
@@ -143,7 +143,7 @@ export const ShortNotesPage: React.FC = () => {
                   onClick={() => setActiveNote(note)}
                   className={`p-3.5 rounded-xl border transition-all cursor-pointer group flex flex-col justify-between ${
                     isSelected
-                      ? 'bg-teal-50/50 dark:bg-[#131f24] border-[#1D8676] shadow-sm'
+                      ? 'bg-teal-50/60 dark:bg-[#131f24] border-[#1D8676] shadow-sm'
                       : 'bg-white dark:bg-[#101519] border-slate-200 dark:border-slate-800/80 hover:border-[#1D8676]/40 hover:bg-slate-50 dark:hover:bg-slate-900'
                   }`}
                 >

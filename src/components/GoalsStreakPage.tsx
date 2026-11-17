@@ -190,7 +190,7 @@ export const GoalsStreakPage: React.FC = () => {
               key={ach.id}
               className={`p-4 rounded-xl border transition-all flex items-start gap-3.5 ${
                 ach.isUnlocked
-                  ? 'bg-teal-50/50 dark:bg-gradient-to-br dark:from-[#12221f] dark:to-[#0d1618] border-[#1D8676] shadow-sm'
+                  ? 'bg-teal-50/50 dark:bg-gradient-to-br dark:from-[#12221f] dark:to-[#0d1618] border-[#1D8676] dark:border-[#1D8676] shadow-sm'
                   : 'bg-white dark:bg-[#101519] border-slate-200 dark:border-slate-800 opacity-75'
               }`}
             >
@@ -236,7 +236,7 @@ export const GoalsStreakPage: React.FC = () => {
         <div className="flex items-center justify-between">
           <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <Gift className="w-4 h-4 text-[#1D8676] dark:text-[#2dd4bf]" />
-            <span>Aspirant Rewards Vault</span>
+            <span>Aspirant Rewards & Study Perks</span>
           </h3>
           <span className="text-xs font-bold text-amber-500 dark:text-amber-400">
             Available: 💎 {userProfile.gems} Gems

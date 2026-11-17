@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="gu-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1D8676"/>
+      <stop offset="100%" stop-color="#0F5147"/>
+    </linearGradient>
+    <linearGradient id="gu-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5EEAD4"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <filter id="gu-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Squircle Base with smooth corners -->
+  <rect width="48" height="48" rx="13" fill="url(#gu-bg)"/>
+
+  <!-- Subtle inner border highlight -->
+  <rect x="0.75" y="0.75" width="46.5" height="46.5" rx="12.25" stroke="white" stroke-opacity="0.18" stroke-width="1.5"/>
+
+  <!-- Inner Content Group with Shadow -->
+  <g filter="url(#gu-glow)">
+    <!-- Graduation Cap Rhombus (Mortarboard) -->
+    <path d="M24 11L38 18L24 25L10 18L24 11Z" fill="white"/>
+    
+    <!-- Cap Underneath Base -->
+    <path d="M15 21.2V26.5C15 29.8 19 32.5 24 32.5C29 32.5 33 29.8 33 26.5V21.2L24 25.8L15 21.2Z" fill="white" fill-opacity="0.88"/>
+
+    <!-- Tassel String -->
+    <path d="M34 19.5V27.5" stroke="url(#gu-accent)" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="34" cy="28.5" r="1.5" fill="#5EEAD4"/>
+
+    <!-- Dynamic Upward Growth Arrow (Representing "Grade UP") -->
+    <!-- Rising chevron in vibrant teal cutting up through the top right -->
+    <path d="M25 38L33 30M33 30H27M33 30V36" stroke="url(#gu-accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

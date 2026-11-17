@@ -39,7 +39,7 @@ export const OnboardingModal: React.FC = () => {
             Personalize Your Study Space
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
-            Tell us your name and target exam so we can calibrate your syllabus, formula vault, and mock tests.
+            Tell us your name and target exam so we can calibrate your study syllabus, formula sheets, and practice tests.
           </p>
         </div>
 

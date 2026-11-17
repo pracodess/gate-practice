@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   ChevronRight, 
   Flag, 
-  Plus, 
   CheckCircle2, 
   Target
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export const DailyGoalBar: React.FC = () => {
-  const { dailyGoal, markQuestionAnswered } = useApp();
+  const { dailyGoal } = useApp();
 
   const percentage = Math.min(100, Math.round((dailyGoal.questionsCompleted / dailyGoal.questionsTarget) * 100));
 
@@ -19,11 +18,6 @@ export const DailyGoalBar: React.FC = () => {
     { label: 'Final Sprint', count: Math.round(dailyGoal.questionsTarget * 0.75) },
     { label: 'Target', count: dailyGoal.questionsTarget }
   ];
-
-  const handleQuickAdd = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    markQuestionAnswered(`quick-log-${Date.now()}`, true, 'A');
-  };
 
   return (
     <div 
@@ -93,16 +87,6 @@ export const DailyGoalBar: React.FC = () => {
           </div>
         </div>
 
-        {/* Quick action button to log question */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={handleQuickAdd}
-            className="px-3 py-1.5 rounded-xl bg-[#1D8676]/10 dark:bg-[#1D8676]/15 hover:bg-[#1D8676]/20 border border-[#1D8676]/30 text-[#1D8676] dark:text-[#2dd4bf] text-xs font-semibold flex items-center gap-1.5 transition-all group"
-          >
-            <Plus className="w-3.5 h-3.5 group-hover:rotate-90 transition-transform" />
-            <span>+1 Solved</span>
-          </button>
-        </div>
       </div>
     </div>
   );

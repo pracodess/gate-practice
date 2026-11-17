@@ -23,7 +23,7 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.18;
+  opacity: 0.06;
   background: 
     radial-gradient(circle at 10% 15%, rgba(29, 134, 118, 0.12) 0%, transparent 45%),
     radial-gradient(circle at 90% 20%, rgba(20, 184, 166, 0.08) 0%, transparent 40%),

@@ -273,6 +273,7 @@ export const SAMPLE_PYQS: PYQQuestion[] = [
     subjectId: 'gate-toc',
     chapterId: 'gate-toc-reg',
     year: 2022,
+    examShift: 'CS Afternoon',
     questionText: 'Which of the following languages over alphabet {0, 1} is regular?',
     type: 'mcq',
     options: [
@@ -287,6 +288,84 @@ export const SAMPLE_PYQS: PYQQuestion[] = [
     difficulty: 'Easy',
     marks: 1,
     negativeMarks: 0.33
+  },
+  {
+    id: 'gate-2022-q2',
+    examId: 'gate',
+    subjectId: 'gate-os',
+    chapterId: 'gate-os-cpu',
+    year: 2022,
+    examShift: 'CS Afternoon',
+    questionText: 'Consider three processes P1, P2, and P3 arriving at time 0 with CPU burst times 4 ms, 6 ms, and 8 ms respectively. Using Round Robin CPU scheduling with a time quantum of 2 ms (no context switch overhead), what is the average waiting time (in ms)?',
+    type: 'nat',
+    correctAnswer: '5.67',
+    numericalTolerance: 0.1,
+    explanation: 'Gantt Chart with Q=2:\n0-2: P1 (rem: 2)\n2-4: P2 (rem: 4)\n4-6: P3 (rem: 6)\n6-8: P1 (rem: 0, finishes at 8). Completion time P1 = 8 => WT1 = 8 - 4 = 4.\n8-10: P2 (rem: 2)\n10-12: P3 (rem: 4)\n12-14: P2 (rem: 0, finishes at 14). Completion time P2 = 14 => WT2 = 14 - 6 = 8.\n14-18: P3 finishes at 18. WT3 = 18 - 8 = 10.\nAverage Waiting Time = (4 + 8 + 10) / 3 = 22 / 3 = 5.67 ms.',
+    keyFormula: 'Waiting Time = Turnaround Time - Burst Time',
+    difficulty: 'Medium',
+    marks: 2,
+    negativeMarks: 0
+  },
+  {
+    id: 'gate-2022-q3',
+    examId: 'gate',
+    subjectId: 'gate-dsa',
+    chapterId: 'gate-dsa-dp',
+    year: 2022,
+    examShift: 'CS Forenoon',
+    questionText: 'Consider the recurrence relation: T(n) = 4 T(n/2) + n^2. With T(1) = Theta(1), which of the following represents the asymptotic time complexity of T(n)?',
+    type: 'mcq',
+    options: [
+      { id: 'A', text: 'Theta(n^2)' },
+      { id: 'B', text: 'Theta(n^2 log n)' },
+      { id: 'C', text: 'Theta(n^3)' },
+      { id: 'D', text: 'Theta(n log n)' }
+    ],
+    correctAnswer: 'B',
+    explanation: 'Using Master Theorem: T(n) = a T(n/b) + f(n) where a = 4, b = 2, f(n) = n^2.\nCalculate n^(log_b(a)) = n^(log_2(4)) = n^2.\nSince f(n) = Theta(n^(log_b(a))) = Theta(n^2), this falls into Case 2 of Master Theorem.\nTherefore, T(n) = Theta(n^(log_b(a)) * log n) = Theta(n^2 log n).',
+    keyFormula: 'Master Theorem Case 2: f(n) = Theta(n^(log_b a)) ==> T(n) = Theta(n^(log_b a) * log n)',
+    difficulty: 'Easy',
+    marks: 1,
+    negativeMarks: 0.33
+  },
+  {
+    id: 'gate-2022-q4',
+    examId: 'gate',
+    subjectId: 'gate-dbms',
+    chapterId: 'gate-dbms-norm',
+    year: 2022,
+    examShift: 'CS Afternoon',
+    questionText: 'Consider a relation schema R(A, B, C, D) with the functional dependencies F = {A -> B, B -> C, C -> D, D -> A}. What is the highest normal form satisfied by relation R?',
+    type: 'mcq',
+    options: [
+      { id: 'A', text: '1NF but not 2NF' },
+      { id: 'B', text: '2NF but not 3NF' },
+      { id: 'C', text: '3NF but not BCNF' },
+      { id: 'D', text: 'BCNF' }
+    ],
+    correctAnswer: 'D',
+    explanation: 'From the given FDs:\nA+ = {A, B, C, D}\nB+ = {B, C, D, A}\nC+ = {C, D, A, B}\nD+ = {D, A, B, C}\nAll single attributes A, B, C, and D are candidate keys (and therefore super keys). In every non-trivial functional dependency X -> Y, X is a super key. Hence, relation R is in Boyce-Codd Normal Form (BCNF).',
+    keyFormula: 'Relation is in BCNF iff for every FD X -> Y, X is a super key.',
+    difficulty: 'Easy',
+    marks: 1,
+    negativeMarks: 0.33
+  },
+  {
+    id: 'gate-2022-q5',
+    examId: 'gate',
+    subjectId: 'gate-cn',
+    chapterId: 'gate-cn-tcp',
+    year: 2022,
+    examShift: 'CS Forenoon',
+    questionText: 'In a Stop-and-Wait ARQ protocol, the channel bandwidth is 1 Mbps (10^6 bps) and one-way propagation delay is 20 ms. Assuming transmission time of ACK is negligible, what is the minimum frame size (in bytes) required to achieve a channel efficiency of at least 50%?',
+    type: 'nat',
+    correctAnswer: '5000',
+    numericalTolerance: 10,
+    explanation: 'Channel efficiency eta = T_t / (T_t + 2 * T_p) >= 0.5.\n=> T_t >= 2 * T_p = 2 * 20 ms = 40 ms = 0.040 s.\nFrame size L = T_t * Bandwidth = 0.040 s * 10^6 bits/sec = 40,000 bits.\nIn bytes: 40,000 / 8 = 5,000 bytes.',
+    keyFormula: 'Efficiency eta = 1 / (1 + 2a) where a = T_p / T_t. For eta >= 50%, T_t >= 2 * T_p.',
+    difficulty: 'Medium',
+    marks: 2,
+    negativeMarks: 0
   },
 
   // JEE Questions
@@ -557,13 +636,25 @@ export const SHORT_NOTES_DATA: ShortNote[] = [
 
 export const SAMPLE_MOCK_TESTS: MockTest[] = [
   {
+    id: 'mock-gate-2022-paper',
+    examId: 'gate',
+    title: 'GATE CS 2022 Official Paper Simulator',
+    type: 'Full Mock',
+    durationMinutes: 180,
+    totalQuestions: 5,
+    totalMarks: 8,
+    positiveMarks: 1,
+    negativeMarks: 0.33,
+    questions: SAMPLE_PYQS.filter(q => q.examId === 'gate' && q.year === 2022)
+  },
+  {
     id: 'mock-gate-full-1',
     examId: 'gate',
     title: 'GATE CS 2025 Full Length Mock Test 01',
     type: 'Full Mock',
     durationMinutes: 180,
-    totalQuestions: 5,
-    totalMarks: 7,
+    totalQuestions: 9,
+    totalMarks: 13,
     positiveMarks: 1,
     negativeMarks: 0.33,
     questions: SAMPLE_PYQS.filter(q => q.examId === 'gate')
